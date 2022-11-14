@@ -1,32 +1,20 @@
-type TodoListPropsType = {
+import {Title} from "./Title/Title";
+import {TaskList} from "./TaskList/TaskList";
+import {filterValuesType, TasksType} from "../App";
+
+ export type TodoListPropsType = {
     title: string
     tasks: TasksType[]
-    removeTask: Function
-}
-type TasksType = {
-    id: number
-    title: string
-    isDone: boolean
+    removeTask: (id: number)=> void
+     chengeFilter: (value: filterValuesType)=> void
 }
 
 export function TodoList(props: TodoListPropsType) {
-    const tasksMap = props.tasks.map((el) =>
-        <div><input type={'checkbox'} checked={el.isDone}/>
-            <span>{el.title}</span>
-            <button onClick={() => {
-                props.removeTask(el.id)
-            }}>x
-            </button>
-        </div>)
+
     return (
         <div>
-            <h3>{props.title}</h3>
-            <input/>
-            <button>+</button>
-            {tasksMap}
-            <button> All</button>
-            <button>Active</button>
-            <button>Completed</button>
+            <Title title={props.title}/>
+            <TaskList tasks={props.tasks} removeTask={props.removeTask} changeFilter={props.chengeFilter}/>
         </div>
     )
 }
