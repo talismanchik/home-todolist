@@ -1,53 +1,65 @@
 import React, {useState} from 'react';
 import './App.css';
-import {TodoList} from "./Component/TodoList";
+import {v1} from "uuid";
+import {TodoList} from "./Components/TodoList";
 
 export type TasksType = {
-    id: number
+    id: string
     title: string
     isDone: boolean
 }
 
-export type filterValuesType = "All" | "Completed" | "Active"
+export type filterType = 'all' | 'completed' | 'active'
 
-export function App() {
 
-    let [tasks, setTask] = useState<TasksType[]>([
-        {id: 1, title: "HTML", isDone: true},
-        {id: 2, title: "CSS", isDone: true},
-        {id: 3, title: "JS", isDone: true},
-        {id: 4, title: "React", isDone: true},
-        {id: 5, title: "Angular", isDone: false},
-        {id: 6, title: "View", isDone: false}])
-    let [filter, setFilter] = useState<filterValuesType>("All")
+function App() {
+    let [tasks, setTasks] = useState([
+        {id: v1(), title: "HTML&CSS", isDone: true},
+        {id: v1(), title: "JS", isDone: true},
+        {id: v1(), title: "ReactJS", isDone: false},
+        {id: v1(), title: "Rest API", isDone: false},
+        {id: v1(), title: "GraphQL", isDone: false},
+    ]);
+    let [filter, setFilter] = useState('all')
 
-    let tasksForTodoList = tasks
-    if(filter === "Completed"){
-        tasksForTodoList = tasks.filter(el=> el.isDone)
+    let [inputText, setInputText] = useState('')
+
+    const addedList = (val: string) => {
+        let newTask = {id: v1(), title: val, isDone: false}
+        setTasks([...tasks, newTask])
     }
-    if (filter === "Active"){
-        tasksForTodoList = tasks.filter((el=> !el.isDone))
+
+    const callBackButtonForInput = () => {
+        addedList(inputText)
+        setInputText('')
     }
-    
-    function changeFilter(value: filterValuesType) {
+
+
+    const removeTask = (id: string) => {
+        setTasks(tasks.filter(el => el.id !== id))
+    }
+    let filterTasks = tasks;
+    if (filter === 'completed') filterTasks = tasks.filter(el => el.isDone)
+    if (filter === 'active') filterTasks = tasks.filter(el => !el.isDone)
+
+    const filteredTasks = (value: filterType) => {
         setFilter(value)
-    }
-
-    function removeTask(id: number) {
-        let filteredTasks = tasks.filter(el => el.id !== id)
-        setTask(filteredTasks)
     }
 
     return (
         <div className="App">
-
-            <TodoList title={"First list"}
-                      tasks={tasksForTodoList}
-                      removeTask={removeTask}
-                      chengeFilter={changeFilter}
+            <TodoList
+                title={"First list"}
+                tasks={filterTasks}
+                removeTask={removeTask}
+                filteredTasks={filteredTasks}
+                inputText={inputText}
+                setInputText={setInputText}
+                callBack={callBackButtonForInput}
             />
         </div>
     );
 }
 
 export default App;
+
