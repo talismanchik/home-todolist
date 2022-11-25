@@ -19,7 +19,7 @@ export const TodoList: React.FC<TodoListPropsType> = (
         filteredTasks,
         addedList
     }) => {
-    return (
+    return   (
         <div>
             <Title
                 title={title}
