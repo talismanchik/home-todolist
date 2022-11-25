@@ -8,24 +8,26 @@ type TodoListPropsType = {
     tasks: TasksType[]
     removeTask: (id: string) => void
     filteredTasks: (value: filterType) => void
-    callBack: () => void
-    inputText: string
-    setInputText: (value: string) => void
-
+    addedList: (val: string) => void
 }
 
-export const TodoList = (props: TodoListPropsType) => {
+export const TodoList: React.FC<TodoListPropsType> = (
+    {
+        title,
+        tasks,
+        removeTask,
+        filteredTasks,
+        addedList
+    }) => {
     return (
         <div>
             <Title
-                title={props.title}
-                callBack={props.callBack}
-                inputText={props.inputText}
-                setInputText={props.setInputText}/>
+                title={title}
+                addedList={addedList}/>
             <ListContent
-                tasks={props.tasks}
-                removeTask={props.removeTask}
-                filteredTasks={props.filteredTasks}/>
+                tasks={tasks}
+                removeTask={removeTask}
+                filteredTasks={filteredTasks}/>
         </div>
     );
 };

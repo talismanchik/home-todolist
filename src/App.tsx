@@ -22,18 +22,10 @@ function App() {
     ]);
     let [filter, setFilter] = useState('all')
 
-    let [inputText, setInputText] = useState('')
-
     const addedList = (val: string) => {
         let newTask = {id: v1(), title: val, isDone: false}
         setTasks([...tasks, newTask])
     }
-
-    const callBackButtonForInput = () => {
-        addedList(inputText)
-        setInputText('')
-    }
-
 
     const removeTask = (id: string) => {
         setTasks(tasks.filter(el => el.id !== id))
@@ -53,10 +45,7 @@ function App() {
                 tasks={filterTasks}
                 removeTask={removeTask}
                 filteredTasks={filteredTasks}
-                inputText={inputText}
-                setInputText={setInputText}
-                callBack={callBackButtonForInput}
-            />
+                addedList={addedList}/>
         </div>
     );
 }

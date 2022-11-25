@@ -4,25 +4,29 @@ import {Button} from "../Button";
 
 type TitlePropsType = {
     title: string
-    callBack: () => void
-    inputText: string
-    setInputText: (value: string) => void
+    addedList: (val: string) => void
 }
 
-export const Title = (props: TitlePropsType) => {
+export const Title: React.FC<TitlePropsType> = ({title, addedList}) => {
+    let [inputText, setInputText] = useState('')
+
+    const callBackButtonForInput = () => {
+        addedList(inputText)
+        setInputText('')
+    }
 
     return (
         <div>
             <div>
-                <h2>{props.title}</h2>
+                <h2>{title}</h2>
             </div>
             <div>
                 <Input
-                    inputText={props.inputText}
-                    setInputText={props.setInputText}/>
+                    inputText={inputText}
+                    setInputText={setInputText}/>
                 <Button
                     name={'+'}
-                    callBack={props.callBack}/>
+                    callBack={callBackButtonForInput}/>
             </div>
         </div>
     );

@@ -5,14 +5,14 @@ type InputPropsType = {
     setInputText: (value: string) => void
 }
 
-export const Input = (props: InputPropsType) => {
+export const Input: React.FC<InputPropsType> = ({inputText, setInputText}) => {
 
     const onchangeInputHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        props.setInputText(event.currentTarget.value)
+        setInputText(event.currentTarget.value)
     }
 
     return (
-        <input value={props.inputText} onChange={onchangeInputHandler}/>
+        <input value={inputText} onChange={onchangeInputHandler}/>
     );
 };
 
