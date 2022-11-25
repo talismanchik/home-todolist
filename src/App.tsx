@@ -6,7 +6,7 @@ import {TodoList} from "./Components/TodoList";
 export type TasksType = {
     id: string
     title: string
-    isDone:  boolean
+    isDone: boolean
 }
 
 export type filterType = 'all' | 'completed' | 'active'
