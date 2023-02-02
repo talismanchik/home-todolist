@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {AddTodoListAT, RemoveTodoListAT, todolistId1, todolistId2} from "./todoLists-reducer";
+import {AddTodoListAT, RemoveTodoListAT} from "./todoLists-reducer";
 
 
 export type removeTaskAT = {
@@ -39,16 +39,7 @@ export type TaskType = {
     title: string
     isDone: boolean
 }
-const initialState: TasksStateType = {
-    [todolistId1]: [
-        {id: v1(), title: "HTML&CSS", isDone: true},
-        {id: v1(), title: "JS", isDone: true}
-    ],
-    [todolistId2]: [
-        {id: v1(), title: "Milk", isDone: true},
-        {id: v1(), title: "React Book", isDone: true}
-    ]
-}
+const initialState: TasksStateType = {}
 
 export const tasksReducer = (state: TasksStateType = initialState, action: ActionType) => {
     switch (action.type) {
@@ -58,22 +49,23 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
             const newTask: TaskType = {id: v1(), title: action.title, isDone: false}
             return {...state, [action.listID]: [...state[action.listID], newTask]}
         case 'CHANGE_TASK_STATUS':
-            return {...state,
+            return {
+                ...state,
                 [action.listID]: state[action.listID].map(el => el.id === action.taskID ? {
                     ...el,
                     isDone: action.isDone
                 } : el)
             }
         case 'CHANGE_TASK_TITLE':
-            return {...state,
+            return {
+                ...state,
                 [action.listID]: state[action.listID].map(el => el.id === action.taskID ? {
                     ...el,
                     title: action.title
-                } : el)}
+                } : el)
+            }
         case 'ADD_TODOLIST':
-            const newState = {...state, [action.listId]: [] }
-            console.log(newState)
-            return newState
+            return {...state, [action.listId]: []}
         case "REMOVE_TODOLIST":
             let copyState = {...state}
             delete copyState[action.id]

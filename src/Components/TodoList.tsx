@@ -1,13 +1,14 @@
-import React, {ChangeEvent} from 'react';
+import React, {useCallback} from 'react';
 import {AddItemForm} from './AddItemForm';
 import {EditableSpan} from './EditableSpan';
 import IconButton from '@mui/material/IconButton/IconButton';
 import {Delete} from "@mui/icons-material";
-import {Button, Checkbox} from "@mui/material";
+import {Button} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "../state/store";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, TaskType} from "../state/tasks-reducer";
+import {addTaskAC, TaskType} from "../state/tasks-reducer";
 import {FilterValuesType} from "../state/todoLists-reducer";
+import {Task} from "./Task";
 
 type PropsType = {
     id: string
@@ -19,7 +20,7 @@ type PropsType = {
 
 }
 
-export const TodoList: React.FC<PropsType> = ({
+export const TodoList: React.FC<PropsType> = React.memo(({
                                                   id,
                                                   title,
                                                   changeFilter,
@@ -34,9 +35,9 @@ export const TodoList: React.FC<PropsType> = ({
     const removeTodolistHandler = () => {
         removeTodolist(id);
     }
-    const changeTodolistTitleHandler = (title: string) => {
+    const changeTodolistTitleHandler = useCallback((title: string) => {
         changeTodolistTitle(id, title);
-    }
+    }, [changeTodolistTitle, id])
 
     let tasksForTodolist = tasks;
     if (filter === "active") {
@@ -46,6 +47,8 @@ export const TodoList: React.FC<PropsType> = ({
         tasksForTodolist = tasks.filter(t => t.isDone);
     }
 
+    const tasksMap = tasksForTodolist.map(el=> <Task key={el.id} task={el} listId={id}/>)
+
     return <div>
         <h3><EditableSpan value={title} onChange={changeTodolistTitleHandler}/>
             <IconButton onClick={removeTodolistHandler}>
@@ -53,32 +56,7 @@ export const TodoList: React.FC<PropsType> = ({
             </IconButton>
         </h3>
         <AddItemForm addItem={(title) => dispatch(addTaskAC(title, id))}/>
-        <div>
-            {
-                tasksForTodolist.map(el => {
-                    const onClickHandler = () => dispatch(removeTaskAC(el.id, id))
-                    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                        let newIsDoneValue = e.currentTarget.checked;
-                        dispatch(changeTaskStatusAC(el.id, newIsDoneValue, id))
-                    }
-                    const onTitleChangeHandler = (newValue: string) => {
-                        dispatch(changeTaskTitleAC(el.id, newValue, id))
-                    }
-
-                    return <div key={el.id} className={el.isDone ? "is-done" : ""}>
-                        <Checkbox
-                            checked={el.isDone}
-                            color="primary"
-                            onChange={onChangeHandler}
-                        />
-                        <EditableSpan value={el.title} onChange={onTitleChangeHandler}/>
-                        <IconButton onClick={onClickHandler}>
-                            <Delete/>
-                        </IconButton>
-                    </div>
-                })
-            }
-        </div>
+        {tasksMap}
         <div>
             <Button variant={filter === 'all' ? 'outlined' : 'text'}
                     onClick={() => changeFilter("all", id)}
@@ -94,6 +72,4 @@ export const TodoList: React.FC<PropsType> = ({
             </Button>
         </div>
     </div>
-}
-
-
+})

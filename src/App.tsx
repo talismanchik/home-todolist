@@ -1,5 +1,5 @@
-import React from 'react';
-import { TodoList} from './Components/TodoList';
+import React, {useCallback} from 'react';
+import {TodoList} from './Components/TodoList';
 import {AddItemForm} from './Components/AddItemForm';
 import AppBar from '@mui/material/AppBar/AppBar';
 import {Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
@@ -14,22 +14,21 @@ import {
 } from "./state/todoLists-reducer";
 
 function App() {
-
     const dispatch = useDispatch()
     const todoLists = useSelector<AppRootState, TodolistType[]>(state => state.todoLists)
 
-    function changeFilter(value: FilterValuesType, todolistId: string) {
+    const changeFilter = useCallback((value: FilterValuesType, todolistId: string) => {
         dispatch(ChangeTodoListFilterAC(todolistId, value))
-    }
-    function removeTodolist(id: string) {
+    }, [dispatch])
+    const removeTodolist = useCallback((id: string) => {
         dispatch(RemoveTodoListAC(id))
-    }
-    function changeTodolistTitle(id: string, title: string) {
+    }, [dispatch])
+    const changeTodolistTitle = useCallback((id: string, title: string) => {
         dispatch(ChangeTodoListTitleAC(id, title))
-    }
-    function addTodolist(title: string) {
+    }, [dispatch])
+    const addTodolist = useCallback((title: string) => {
         dispatch(AddTodoListAC(title))
-    }
+    }, [dispatch])
 
     return (
         <div>
