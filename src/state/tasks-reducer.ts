@@ -1,5 +1,6 @@
 import {v1} from "uuid";
 import {AddTodoListAT, RemoveTodoListAT} from "./todoLists-reducer";
+import {TaskStatuses, TaskType, TodoTaskPriorities} from "../api/tasks-api";
 
 
 export type removeTaskAT = {
@@ -15,7 +16,7 @@ export type addTaskAT = {
 export type changeTaskStatusAT = {
     type: 'CHANGE_TASK_STATUS'
     taskID: string,
-    isDone: boolean,
+    status: TaskStatuses,
     listID: string
 }
 export type changeTaskTitleAT = {
@@ -32,28 +33,35 @@ export  type ActionType = removeTaskAT |
     AddTodoListAT |
     RemoveTodoListAT
 export type TasksStateType = {
-    [key: string]: Array<TaskType>
+    [key: string]: TaskType[]
 }
-export type TaskType = {
-    id: string
-    title: string
-    isDone: boolean
-}
+
 const initialState: TasksStateType = {}
 
-export const tasksReducer = (state: TasksStateType = initialState, action: ActionType) => {
+export const tasksReducer = (state: TasksStateType = initialState, action: ActionType):TasksStateType => {
     switch (action.type) {
         case 'REMOVE_TASK':
             return {...state, [action.listId]: state[action.listId].filter(el => el.id !== action.taskId)}
         case 'ADD_TASK':
-            const newTask: TaskType = {id: v1(), title: action.title, isDone: false}
+            const newTask: TaskType = {
+                id: v1(),
+                title: action.title,
+                status: TaskStatuses.New,
+                todoListId: action.listID,
+                description: '',
+                startDate: '',
+                deadline: '',
+                addedDate: '',
+                order: 0,
+                priority: TodoTaskPriorities.Low,
+            }
             return {...state, [action.listID]: [...state[action.listID], newTask]}
         case 'CHANGE_TASK_STATUS':
             return {
                 ...state,
                 [action.listID]: state[action.listID].map(el => el.id === action.taskID ? {
                     ...el,
-                    isDone: action.isDone
+                    status: action.status
                 } : el)
             }
         case 'CHANGE_TASK_TITLE':
@@ -81,8 +89,8 @@ export const removeTaskAC = (taskId: string, listId: string): removeTaskAT => {
 export const addTaskAC = (title: string, listID: string): addTaskAT => {
     return {type: 'ADD_TASK', title, listID}
 }
-export const changeTaskStatusAC = (taskID: string, isDone: boolean, listID: string): changeTaskStatusAT => {
-    return {type: 'CHANGE_TASK_STATUS', taskID, isDone, listID}
+export const changeTaskStatusAC = (taskID: string, status: TaskStatuses, listID: string): changeTaskStatusAT => {
+    return {type: 'CHANGE_TASK_STATUS', taskID, status, listID}
 }
 export const changeTaskTitleAC = (taskID: string, title: string, listID: string): changeTaskTitleAT => {
     return {type: 'CHANGE_TASK_TITLE', taskID, title, listID}

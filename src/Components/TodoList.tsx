@@ -6,9 +6,10 @@ import {Delete} from "@mui/icons-material";
 import {Button} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "../state/store";
-import {addTaskAC, TaskType} from "../state/tasks-reducer";
+import {addTaskAC} from "../state/tasks-reducer";
 import {FilterValuesType} from "../state/todoLists-reducer";
 import {Task} from "./Task";
+import {TaskStatuses, TaskType} from "../api/tasks-api";
 
 type PropsType = {
     id: string
@@ -41,10 +42,10 @@ export const TodoList: React.FC<PropsType> = React.memo(({
 
     let tasksForTodolist = tasks;
     if (filter === "active") {
-        tasksForTodolist = tasks.filter(t => !t.isDone);
+        tasksForTodolist = tasks.filter(t => t.status === TaskStatuses.New);
     }
     if (filter === "completed") {
-        tasksForTodolist = tasks.filter(t => t.isDone);
+        tasksForTodolist = tasks.filter(t => t.status === TaskStatuses.Completed);
     }
 
     const tasksMap = tasksForTodolist.map(el=> <Task key={el.id} task={el} listId={id}/>)

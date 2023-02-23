@@ -10,12 +10,12 @@ import {
     AddTodoListAC,
     ChangeTodoListFilterAC,
     ChangeTodoListTitleAC, FilterValuesType,
-    RemoveTodoListAC, TodolistType
+    RemoveTodoListAC, TodolistDomainType,
 } from "./state/todoLists-reducer";
 
 function App() {
     const dispatch = useDispatch()
-    const todoLists = useSelector<AppRootState, TodolistType[]>(state => state.todoLists)
+    const todoLists = useSelector<AppRootState, TodolistDomainType[]>(state => state.todoLists)
 
     const changeFilter = useCallback((value: FilterValuesType, todolistId: string) => {
         dispatch(ChangeTodoListFilterAC(todolistId, value))
