@@ -1,21 +1,25 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {TodoList} from './Components/TodoList';
 import {AddItemForm} from './Components/AddItemForm';
 import AppBar from '@mui/material/AppBar/AppBar';
 import {Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
-import {Menu} from "@mui/icons-material";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootState} from "./state/store";
+import MenuIcon from '@mui/icons-material/Menu';
+import {useAppSelector, useAppDispatch} from "./state/store";
 import {
     AddTodoListAC,
     ChangeTodoListFilterAC,
-    ChangeTodoListTitleAC, FilterValuesType,
+    ChangeTodoListTitleAC, FilterValuesType, getTodoListsTC,
     RemoveTodoListAC, TodolistDomainType,
 } from "./state/todoLists-reducer";
 
+
 function App() {
-    const dispatch = useDispatch()
-    const todoLists = useSelector<AppRootState, TodolistDomainType[]>(state => state.todoLists)
+    const dispatch = useAppDispatch()
+    const todoLists = useAppSelector<TodolistDomainType[]>(state => state.todoLists)
+
+    useEffect(() => {
+        dispatch(getTodoListsTC())
+    }, [])
 
     const changeFilter = useCallback((value: FilterValuesType, todolistId: string) => {
         dispatch(ChangeTodoListFilterAC(todolistId, value))
@@ -32,17 +36,25 @@ function App() {
 
     return (
         <div>
-            <AppBar position="static">
-                <Toolbar>
-                    <IconButton edge="start" color="inherit" aria-label="menu">
-                        <Menu/>
-                    </IconButton>
-                    <Typography variant="h6">
-                        News
-                    </Typography>
-                    <Button color="inherit">Login</Button>
-                </Toolbar>
-            </AppBar>
+                <AppBar position="static">
+                    <Toolbar>
+                        <IconButton
+                            size="large"
+                            edge="start"
+                            color="inherit"
+                            aria-label="menu"
+                            sx={{ mr: 2 }}
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                        <Typography variant="h6"
+                                    component="div"
+                                    sx={{ flexGrow: 1 }}>
+                            Todolist
+                        </Typography>
+                        <Button color="inherit">Login</Button>
+                    </Toolbar>
+                </AppBar>
             <Container fixed>
                 <Grid container style={{padding: "20px"}}>
                     <AddItemForm addItem={addTodolist}/>

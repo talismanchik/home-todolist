@@ -1,5 +1,11 @@
 import {tasksReducer, TasksStateType} from "./tasks-reducer";
-import {AddTodoListAC, RemoveTodoListAC, TodolistDomainType, todoListsReducer} from "./todoLists-reducer";
+import {
+    AddTodoListAC,
+    RemoveTodoListAC,
+    SetTodoListsAC,
+    TodolistDomainType,
+    todoListsReducer
+} from "./todoLists-reducer";
 import {TaskStatuses, TodoTaskPriorities} from "../api/tasks-api";
 
 test('ids should be equals', () => {
@@ -109,3 +115,28 @@ test('property with todolistId should be deleted', () => {
     expect(endState['todolistId2']).not.toBeDefined()
 })
 
+test('todolist should be set to the state', () => {
+
+    const action = SetTodoListsAC([
+        {id: 'todolistId1', title: 'What to learn', addedDate: '', order: 0},
+        {id: 'todolistId2', title: 'What to buy', addedDate: '', order: 0}
+    ])
+
+    const endState = todoListsReducer([], action)
+
+    expect(endState.length).toBe(2)
+})
+test('tasks should be set to the state', () => {
+
+    const action = SetTodoListsAC([
+        {id: '1', title: 'What to learn', addedDate: '', order: 0},
+        {id: '2', title: 'What to buy', addedDate: '', order: 0}
+    ])
+    const endState = tasksReducer({}, action)
+
+    const keys = Object.keys(endState)
+
+    expect(keys.length).toBe(2)
+    expect(endState['1']).toStrictEqual([])
+    expect(endState['2']).toStrictEqual([])
+})
