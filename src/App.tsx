@@ -5,13 +5,10 @@ import AppBar from '@mui/material/AppBar/AppBar';
 import {Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import {useAppSelector, useAppDispatch} from "./state/store";
-import {
-    AddTodoListAC,
-    ChangeTodoListFilterAC,
-    ChangeTodoListTitleAC, FilterValuesType, getTodoListsTC,
-    RemoveTodoListAC, TodolistDomainType,
-} from "./state/todoLists-reducer";
-
+import {    addTodoListTC, ChangeTodoListFilterAC,
+    changeTodoListTitleTC,    FilterValuesType,
+    getTodoListsTC, removeTodoListTC,
+    TodolistDomainType} from "./state/todoLists-reducer";
 
 function App() {
     const dispatch = useAppDispatch()
@@ -25,13 +22,13 @@ function App() {
         dispatch(ChangeTodoListFilterAC(todolistId, value))
     }, [dispatch])
     const removeTodolist = useCallback((id: string) => {
-        dispatch(RemoveTodoListAC(id))
+        dispatch(removeTodoListTC(id))
     }, [dispatch])
     const changeTodolistTitle = useCallback((id: string, title: string) => {
-        dispatch(ChangeTodoListTitleAC(id, title))
+        dispatch(changeTodoListTitleTC(id, title))
     }, [dispatch])
     const addTodolist = useCallback((title: string) => {
-        dispatch(AddTodoListAC(title))
+        dispatch(addTodoListTC(title))
     }, [dispatch])
 
     return (

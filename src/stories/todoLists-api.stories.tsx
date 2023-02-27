@@ -22,7 +22,7 @@ export const GetTodoLists = () => {
     </div>
 }
 export const CreateTodoLists = () => {
-    const [state, setState] = useState<ResponseType<TodoListType> | null>(null)
+    const [state, setState] = useState<ResponseType<{item: TodoListType }> | null>(null)
     const [title, setTitle] = useState('')
 
     const createTodoLists = () => {
@@ -94,7 +94,7 @@ export const GetTasks = () => {
     </div>
 }
 export const CreateTasks = () => {
-    const [state, setState] = useState<ResponseType<TaskType> | null>(null)
+    const [state, setState] = useState<ResponseType<{item: TaskType }> | null>(null)
     const [title, setTitle] = useState('')
     const [todoListId, setTodoListId] = useState('')
 

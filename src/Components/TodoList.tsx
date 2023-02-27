@@ -5,7 +5,7 @@ import IconButton from '@mui/material/IconButton/IconButton';
 import {Delete} from "@mui/icons-material";
 import {Button} from "@mui/material";
 import {useAppSelector, useAppDispatch} from "../state/store";
-import {addTaskAC, getTasksTC} from "../state/tasks-reducer";
+import {addTaskTC, getTasksTC} from "../state/tasks-reducer";
 import {FilterValuesType} from "../state/todoLists-reducer";
 import {Task} from "./Task";
 import {TaskStatuses, TaskType} from "../api/tasks-api";
@@ -59,7 +59,7 @@ export const TodoList: React.FC<PropsType> = React.memo(({
                 <Delete/>
             </IconButton>
         </h3>
-        <AddItemForm addItem={(title) => dispatch(addTaskAC(title, id))}/>
+        <AddItemForm addItem={(title) => dispatch(addTaskTC(title, id))}/>
         {tasksMap}
         <div>
             <Button variant={filter === 'all' ? 'outlined' : 'text'}

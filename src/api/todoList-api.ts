@@ -17,7 +17,7 @@ export type TodoListType = {
 export type ResponseType<D = {}> = {
     resultCode: number,
     messages: string[],
-    date: D
+    data: D
 }
 
 export const todoListsApi = {
@@ -25,7 +25,7 @@ export const todoListsApi = {
         return instance.get<TodoListType[]>('todo-lists')
     },
     createTodoList(title: string) {
-        return instance.post<ResponseType<TodoListType>>('todo-lists', {title})
+        return instance.post<ResponseType<{item: TodoListType }>>('todo-lists', {title})
     },
     deleteTodoList(todoListId: string) {
         return instance.delete<ResponseType>(`todo-lists/${todoListId}`)

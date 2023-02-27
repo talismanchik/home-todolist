@@ -1,26 +1,27 @@
-import {useDispatch} from "react-redux";
-import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "../state/tasks-reducer";
+import {removeTasksTC, updateTaskTC} from "../state/tasks-reducer";
 import React, {ChangeEvent, useCallback} from "react";
 import {Checkbox} from "@mui/material";
 import {EditableSpan} from "./EditableSpan";
 import IconButton from "@mui/material/IconButton/IconButton";
 import {Delete} from "@mui/icons-material";
 import {TaskStatuses, TaskType} from "../api/tasks-api";
+import {useAppDispatch} from "../state/store";
 
 type TaskPropsType = {
     listId: string,
     task: TaskType
 }
 export const Task = (props: TaskPropsType) => {
-    const dispatch = useDispatch()
-    const onClickHandler = () => dispatch(removeTaskAC(props.task.id, props.listId))
+    const dispatch = useAppDispatch()
+    const onClickHandler = () => dispatch(removeTasksTC(props.listId, props.task.id))
+
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        let newIsDoneValue = e.currentTarget.checked;
-        dispatch(changeTaskStatusAC(props.task.id, newIsDoneValue? TaskStatuses.Completed: TaskStatuses.New, props.listId))
+        let status = e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New;
+        dispatch(updateTaskTC(props.task.id, {status}, props.listId))
     }
-    const onTitleChangeHandler = useCallback((newValue: string) => {
-        dispatch(changeTaskTitleAC(props.task.id, newValue, props.listId))
-    },[dispatch, props.task.id, props.listId])
+    const onTitleChangeHandler = useCallback((title: string) => {
+        dispatch(updateTaskTC(props.task.id, {title}, props.listId))
+    }, [dispatch, props.task.id, props.listId])
 
     return <div key={props.task.id} className={props.task.status === TaskStatuses.Completed ? "is-done" : ""}>
         <Checkbox
