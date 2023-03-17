@@ -1,8 +1,8 @@
 import {tasksReducer, TasksStateType} from "./tasks-reducer";
 import {
-    AddTodoListAC,
-    RemoveTodoListAC,
-    SetTodoListsAC,
+    addTodoListAC,
+    removeTodoListAC,
+    setTodoListsAC,
     TodolistDomainType,
     todoListsReducer
 } from "./todoLists-reducer";
@@ -12,7 +12,7 @@ test('ids should be equals', () => {
     const startTasksState: TasksStateType = {}
     const startTodoListsState: Array<TodolistDomainType> = []
 
-    const action = AddTodoListAC({
+    const action = addTodoListAC({
         id: 'sfagsdhnsnc',
         title: 'New List',
         addedDate: '',
@@ -109,7 +109,7 @@ test('property with todolistId should be deleted', () => {
         ]
     }
 
-    const action = RemoveTodoListAC('todolistId2')
+    const action = removeTodoListAC('todolistId2')
 
     const endState = tasksReducer(startState, action)
 
@@ -122,7 +122,7 @@ test('property with todolistId should be deleted', () => {
 
 test('todolist should be set to the state', () => {
 
-    const action = SetTodoListsAC([
+    const action = setTodoListsAC([
         {id: 'todolistId1', title: 'What to learn', addedDate: '', order: 0},
         {id: 'todolistId2', title: 'What to buy', addedDate: '', order: 0}
     ])
@@ -133,7 +133,7 @@ test('todolist should be set to the state', () => {
 })
 test('tasks should be set to the state', () => {
 
-    const action = SetTodoListsAC([
+    const action = setTodoListsAC([
         {id: '1', title: 'What to learn', addedDate: '', order: 0},
         {id: '2', title: 'What to buy', addedDate: '', order: 0}
     ])
