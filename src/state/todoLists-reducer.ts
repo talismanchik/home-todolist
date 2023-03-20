@@ -1,6 +1,6 @@
-import {todoListsApi, TodoListType} from "../api/todoList-api";
+import {todoListsAPI, TodoListType} from "../api/todoList-api";
 import {Dispatch} from "redux";
-import {RequestStatusType, setAppErrorAT, setAppStatusAC, setAppStatusAT} from "../app/app-reducer";
+import {RequestStatusType, SetAppErrorAT, setAppStatusAC, SetAppStatusAT} from "./app-reducer";
 
 import {handleServerAppError, handleServerNetworkError} from "../utils/error-utils";
 
@@ -38,7 +38,7 @@ export const setTodoListsAC = (todoLists: TodoListType[]) => ({type: 'SET_TODOLI
 export const getTodoListsTC = () => {
     return (dispatch: ThunkDispatch) => {
         dispatch(setAppStatusAC('loading'))
-        todoListsApi.getTodoLists()
+        todoListsAPI.getTodoLists()
             .then(res => {
                 dispatch(setTodoListsAC(res.data))
                 dispatch(setAppStatusAC('succeeded'))
@@ -52,7 +52,7 @@ export const removeTodoListTC = (listID: string) => {
     return (dispatch:ThunkDispatch) => {
         dispatch(setAppStatusAC('loading'))
         dispatch(changeTodoListEntityStatusAC(listID, 'loading'))
-        todoListsApi.deleteTodoList(listID)
+        todoListsAPI.deleteTodoList(listID)
             .then(res => {
                 if (res.data.resultCode === 0){
                     dispatch(removeTodoListAC(listID))
@@ -69,7 +69,7 @@ export const removeTodoListTC = (listID: string) => {
 export const addTodoListTC = (title: string) => {
     return (dispatch: ThunkDispatch) => {
         dispatch(setAppStatusAC('loading'))
-        todoListsApi.createTodoList(title)
+        todoListsAPI.createTodoList(title)
             .then(res => {
                 if (res.data.resultCode === 0) {
                     dispatch(addTodoListAC(res.data.data.item))
@@ -86,7 +86,7 @@ export const addTodoListTC = (title: string) => {
 export const changeTodoListTitleTC = (listID: string, title: string) => {
     return (dispatch: ThunkDispatch) => {
         dispatch(setAppStatusAC('loading'))
-        todoListsApi.updateTodoList(listID, title)
+        todoListsAPI.updateTodoList(listID, title)
             .then(res => {
                 if (res.data.resultCode === 0) {
                 dispatch(changeTodoListTitleAC(listID, title))
@@ -114,5 +114,5 @@ export type TodoListActionType =
     | ReturnType<typeof changeTodoListEntityStatusAC>
     | ReturnType<typeof setTodoListsAC>
 
-type ThunkDispatch = Dispatch<TodoListActionType | setAppStatusAT | setAppErrorAT>
+type ThunkDispatch = Dispatch<TodoListActionType | SetAppStatusAT | SetAppErrorAT>
 

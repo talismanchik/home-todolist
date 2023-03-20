@@ -21,6 +21,7 @@ export const startState: TasksStateType = {
             addedDate: '',
             order: 0,
             priority: TodoTaskPriorities.Low,
+            entityStatus:"idle"
         },
         {
             id: '2',
@@ -33,6 +34,7 @@ export const startState: TasksStateType = {
             addedDate: '',
             order: 0,
             priority: TodoTaskPriorities.Low,
+            entityStatus:"idle"
         },
         {
             id: '3',
@@ -45,6 +47,7 @@ export const startState: TasksStateType = {
             addedDate: '',
             order: 0,
             priority: TodoTaskPriorities.Low,
+            entityStatus:"idle"
         }
     ],
     'todolistId2': [
@@ -59,6 +62,7 @@ export const startState: TasksStateType = {
             addedDate: '',
             order: 0,
             priority: TodoTaskPriorities.Low,
+            entityStatus:"idle"
         },
         {
             id: '2',
@@ -71,6 +75,7 @@ export const startState: TasksStateType = {
             addedDate: '',
             order: 0,
             priority: TodoTaskPriorities.Low,
+            entityStatus:"idle"
         },
         {
             id: '3',
@@ -83,6 +88,7 @@ export const startState: TasksStateType = {
             addedDate: '',
             order: 0,
             priority: TodoTaskPriorities.Low,
+            entityStatus:"idle"
         }
     ]
 }

@@ -43,6 +43,7 @@ test('property with todolistId should be deleted', () => {
                 addedDate: '',
                 order: 0,
                 priority: TodoTaskPriorities.Low,
+                entityStatus:"idle"
             },
             {
                 id: '2',
@@ -55,6 +56,7 @@ test('property with todolistId should be deleted', () => {
                 addedDate: '',
                 order: 0,
                 priority: TodoTaskPriorities.Low,
+                entityStatus:"idle"
             },
             {
                 id: '3',
@@ -67,6 +69,7 @@ test('property with todolistId should be deleted', () => {
                 addedDate: '',
                 order: 0,
                 priority: TodoTaskPriorities.Low,
+                entityStatus:"idle"
             }
         ],
         'todolistId2': [
@@ -81,6 +84,7 @@ test('property with todolistId should be deleted', () => {
                 addedDate: '',
                 order: 0,
                 priority: TodoTaskPriorities.Low,
+                entityStatus:"idle"
             },
             {
                 id: '2',
@@ -93,6 +97,7 @@ test('property with todolistId should be deleted', () => {
                 addedDate: '',
                 order: 0,
                 priority: TodoTaskPriorities.Low,
+                entityStatus:"idle"
             },
             {
                 id: '3',
@@ -105,6 +110,7 @@ test('property with todolistId should be deleted', () => {
                 addedDate: '',
                 order: 0,
                 priority: TodoTaskPriorities.Low,
+                entityStatus:"idle"
             }
         ]
     }

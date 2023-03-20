@@ -1,4 +1,4 @@
-import {removeTasksTC, updateTaskTC} from "../../../../state/tasks-reducer";
+import {removeTasksTC, TaskDomainType, updateTaskTC} from "../../../../state/tasks-reducer";
 import React, {ChangeEvent, useCallback} from "react";
 import {Checkbox} from "@mui/material";
 import {EditableSpan} from "../../../../сomponents/EditableSpan/EditableSpan";
@@ -9,7 +9,7 @@ import {useAppDispatch} from "../../../../state/store";
 
 type TaskPropsType = {
     listId: string,
-    task: TaskType
+    task: TaskDomainType
 }
 export const Task = (props: TaskPropsType) => {
     const dispatch = useAppDispatch()
@@ -28,9 +28,13 @@ export const Task = (props: TaskPropsType) => {
             checked={props.task.status === TaskStatuses.Completed}
             color="primary"
             onChange={onChangeHandler}
+            disabled={props.task.entityStatus === "loading"}
         />
-        <EditableSpan value={props.task.title} onChange={onTitleChangeHandler}/>
-        <IconButton onClick={onClickHandler}>
+        <EditableSpan value={props.task.title}
+                      disabled={props.task.entityStatus === "loading"}
+                      onChange={onTitleChangeHandler}/>
+        <IconButton onClick={onClickHandler}
+                    disabled={props.task.entityStatus === 'loading'}>
             <Delete/>
         </IconButton>
     </div>

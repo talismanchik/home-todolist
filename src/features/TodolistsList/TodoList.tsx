@@ -5,11 +5,11 @@ import IconButton from '@mui/material/IconButton/IconButton';
 import {Delete} from "@mui/icons-material";
 import {Button} from "@mui/material";
 import {useAppSelector, useAppDispatch} from "../../state/store";
-import {addTaskTC, getTasksTC} from "../../state/tasks-reducer";
+import {addTaskTC, getTasksTC, TaskDomainType} from "../../state/tasks-reducer";
 import {FilterValuesType} from "../../state/todoLists-reducer";
 import {Task} from "./Todolist/Task/Task";
 import {TaskStatuses, TaskType} from "../../api/tasks-api";
-import {RequestStatusType} from "../../app/app-reducer";
+import {RequestStatusType} from "../../state/app-reducer";
 
 type PropsType = {
     id: string
@@ -32,7 +32,7 @@ export const TodoList: React.FC<PropsType> = React.memo(({
                                                          }) => {
 
     const dispatch = useAppDispatch()
-    const tasks = useAppSelector<TaskType[]>(state => state.tasks[id])
+    const tasks = useAppSelector<TaskDomainType[]>(state => state.tasks[id])
 
     useEffect(() => {
         dispatch(getTasksTC(id))

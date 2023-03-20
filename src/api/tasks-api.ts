@@ -1,6 +1,6 @@
 import axios from "axios";
 import {ResponseType} from "./todoList-api";
-import {RequestStatusType} from "../app/app-reducer";
+import {RequestStatusType} from "../state/app-reducer";
 
 export default {
     title: 'API'
@@ -14,7 +14,7 @@ const instance = axios.create({
     }
 })
 // api
-export const tasksApi = {
+export const tasksAPI = {
     getTasks(todoListId: string){
         return instance.get<GetTaskResponseType>(`todo-lists/${todoListId}/tasks`)
     },
