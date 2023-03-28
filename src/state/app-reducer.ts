@@ -3,7 +3,7 @@ import {authAPI} from "../api/auth-api";
 import {setIsLoggedInAC} from "./auth-reducer";
 
 const initialState = {
-    status: 'loading' as RequestStatusType,
+    status: 'idle' as RequestStatusType,
     error: null,
     isInitialized: false,
 }

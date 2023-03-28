@@ -1,15 +1,15 @@
 import React, {useCallback, useEffect} from 'react';
-import {AddItemForm} from '../../сomponents/AddItemForm/AddItemForm';
-import {EditableSpan} from '../../сomponents/EditableSpan/EditableSpan';
+import {AddItemForm} from '../../../сomponents/AddItemForm/AddItemForm';
+import {EditableSpan} from '../../../сomponents/EditableSpan/EditableSpan';
 import IconButton from '@mui/material/IconButton/IconButton';
 import {Delete} from "@mui/icons-material";
 import {Button} from "@mui/material";
-import {useAppSelector, useAppDispatch} from "../../state/store";
-import {addTaskTC, getTasksTC, TaskDomainType} from "../../state/tasks-reducer";
-import {FilterValuesType} from "../../state/todoLists-reducer";
-import {Task} from "./Todolist/Task/Task";
-import {TaskStatuses, TaskType} from "../../api/tasks-api";
-import {RequestStatusType} from "../../state/app-reducer";
+import {useAppSelector, useAppDispatch} from "../../../state/store";
+import {addTaskTC, getTasksTC, TaskDomainType} from "../../../state/tasks-reducer";
+import {FilterValuesType} from "../../../state/todoLists-reducer";
+import {Task} from "./Task/Task";
+import {TaskStatuses, TaskType} from "../../../api/tasks-api";
+import {RequestStatusType} from "../../../state/app-reducer";
 
 type PropsType = {
     id: string

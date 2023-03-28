@@ -10,8 +10,6 @@ import Button from '@mui/material/Button';
 import {useFormik} from "formik";
 import {AppRootStateType, useAppDispatch, useAppSelector} from "../../state/store";
 import {loginTC} from "../../state/auth-reducer";
-import {useSelector} from "react-redux";
-import {bool} from "prop-types";
 import {Navigate} from "react-router-dom";
 
 export const Login = () => {

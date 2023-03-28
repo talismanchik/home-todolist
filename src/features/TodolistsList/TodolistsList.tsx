@@ -11,7 +11,7 @@ import {
 } from "../../state/todoLists-reducer";
 import {Grid, Paper} from "@mui/material";
 import {AddItemForm} from "../../сomponents/AddItemForm/AddItemForm";
-import {TodoList} from "./TodoList";
+import {TodoList} from "./Todolist/TodoList";
 import {Navigate} from "react-router-dom";
 
 export const TodolistsList: React.FC = () => {
